@@ -1,4 +1,4 @@
-package PDE
+package PDELib
 
   annotation (uses(Modelica(version="2.2.1")), Documentation(info="<html>
 <p>
@@ -11,7 +11,7 @@ This package contains necessary blocks for solving partial differential equation
 <ul>
 </html>"));
 
-  package UsersGuide "User´s Guide"
+  package UsersGuide "UserÂ´s Guide"
     annotation (DocumentationClass=true, Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide of the PDE Library</font></h3>
 <p>
@@ -22,9 +22,9 @@ and Examples of the corresponding methods.
 </p>
 
 <ul>
-<li> <a href=\"Modelica://PDE.UsersGuide.MethodOfLines\">Method of Lines</a> </li>
-<li> <a href=\"Modelica://PDE.UsersGuide.FiniteVolumeMethod\">Finite Volume Method</a> </li>
-<li> <a href=\"Modelica://PDE.UsersGuide.FluxLimiter\">Flux Limiter</a> </li>
+<li> <a href=\"Modelica://PDELib.UsersGuide.MethodOfLines\">Method of Lines</a> </li>
+<li> <a href=\"Modelica://PDELib.UsersGuide.FiniteVolumeMethod\">Finite Volume Method</a> </li>
+<li> <a href=\"Modelica://PDELib.UsersGuide.FluxLimiter\">Flux Limiter</a> </li>
 </ul>
 
 </pre>
@@ -119,10 +119,10 @@ theory. In the following a short introduction to the finite volume <br>
 method is made. This short introduction is based on book of Randall
 Leveque, \"Finite Volume Methods for Hyperbolic Problems\".
 <ul>
-<li> <a href=\"Modelica://PDE.UsersGuide.FiniteVolumeMethod.Introduction\">Introduction</a> </li>
-<li> <a href=\"Modelica://PDE.UsersGuide.FiniteVolumeMethod.UnstableMethod\">Unstable Method</a> </li>
-<li> <a href=\"Modelica://PDE.UsersGuide.FiniteVolumeMethod.LaxFriedrichMethod\">Lax-Friedrichs Method</a> </li>
-<li> <a href=\"Modelica://PDE.UsersGuide.FiniteVolumeMethod.Implementation\">Implementation</a> </li>
+<li> <a href=\"Modelica://PDELib.UsersGuide.FiniteVolumeMethod.Introduction\">Introduction</a> </li>
+<li> <a href=\"Modelica://PDELib.UsersGuide.FiniteVolumeMethod.UnstableMethod\">Unstable Method</a> </li>
+<li> <a href=\"Modelica://PDELib.UsersGuide.FiniteVolumeMethod.LaxFriedrichMethod\">Lax-Friedrichs Method</a> </li>
+<li> <a href=\"Modelica://PDELib.UsersGuide.FiniteVolumeMethod.Implementation\">Implementation</a> </li>
 </ul>
 
 
@@ -567,7 +567,7 @@ using \"extends\".
 
   package World
     model worldModel
-      extends PDE.Icons.BlockIcon;
+      extends PDELib.Icons.BlockIcon;
 
     parameter Integer n = 10 "Number of grid points or cells";
     parameter Integer qss=1
@@ -649,9 +649,9 @@ where h = x<sub>i+1</sub> - x<sub>i</sub> (for i = 0,..., n-1). We assume here t
 </html>"));
       package Derivatives
         block u_x
-          extends PDE.Icons.BlockIcon2;
+          extends PDELib.Icons.BlockIcon2;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer method = worldModel1.qss;
           inner parameter Integer n = worldModel1.n;
 
@@ -699,14 +699,14 @@ By using the same idea we obtain a biased formula for the boundary point x<sub>n
 
 <ul>
 </html>"));
-          PDE.MOL.SpaceDerivative.SDInterfaces.u_xCD4B4 der5_1 if
+          PDELib.MOL.SpaceDerivative.SDInterfaces.u_xCD4B4 der5_1 if
                                                   method == 1
                                      annotation (extent=[-20,-10; 0,10]);
           annotation (extent=[-20,-10; 0,10]);
-          PDE.MOL.SpaceDerivative.SDInterfaces.u_xCD2B2 der1 if
+          PDELib.MOL.SpaceDerivative.SDInterfaces.u_xCD2B2 der1 if
                                                 method == 2
                                   annotation (extent=[-20,60; 0,80]);
-          PDE.MOL.SpaceDerivative.SDInterfaces.u_xCD6B6 cD6B6_1 if
+          PDELib.MOL.SpaceDerivative.SDInterfaces.u_xCD6B6 cD6B6_1 if
                                                    method == 3
             annotation (extent=[-20,-80; 0,-60]);
         equation
@@ -727,7 +727,7 @@ By using the same idea we obtain a biased formula for the boundary point x<sub>n
 
         block u_xx
           extends Icons.BlockIcon3;
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         inner parameter Integer n = worldModel1.n;
         parameter Integer u_xx = worldModel1.u_xx;
 
@@ -788,9 +788,9 @@ for the boundary points we use a biased formula and we obtain
 
 <ul>
 </html>"));
-          PDE.MOL.SpaceDerivative.SDInterfaces.u_xxCD2B2 u_xxCD2B2_1 if
+          PDELib.MOL.SpaceDerivative.SDInterfaces.u_xxCD2B2 u_xxCD2B2_1 if
                                    u_xx == 1 annotation (extent=[-20,16; 12,40]);
-          PDE.MOL.SpaceDerivative.SDInterfaces.u_xxCD4B4 derivatorSecond if
+          PDELib.MOL.SpaceDerivative.SDInterfaces.u_xxCD4B4 derivatorSecond if
                                              u_xx == 2
             annotation (extent=[-20,-40; 12,-16]);
         equation
@@ -831,7 +831,7 @@ where h = x<sub>i+1</sub> - x<sub>i</sub> (for i = 0,..., n-1). We assume here t
 
       package SDInterfaces
         block u_xCD2B2
-          extends PDE.Icons.BlockIcon;
+          extends PDELib.Icons.BlockIcon;
 
         outer Integer n;
         outer Integer bcl;
@@ -903,7 +903,7 @@ By using the same idea we obtain a biased formula for the boundary point x<sub>n
         end u_xCD2B2;
 
         block u_xCD4B4
-          extends PDE.Icons.BlockIcon;
+          extends PDELib.Icons.BlockIcon;
 
         outer Integer n;
         outer Integer bcl;
@@ -1066,7 +1066,7 @@ For the boundary points second-order biased approximation is used.
         end u_xxCD2B2;
 
         block u_xxCD4B4
-          extends PDE.Icons.BlockIcon;
+          extends PDELib.Icons.BlockIcon;
 
         outer Integer n;
         outer Integer bcl;
@@ -1140,9 +1140,9 @@ This package contains blocks for the computation of spatial derivative schemes o
 
     package Integrator
       block UniversalIntegrator
-        extends PDE.Icons.BlockIcon1;
+        extends PDELib.Icons.BlockIcon1;
 
-      outer PDE.World.worldModel worldModel1;
+      outer PDELib.World.worldModel worldModel1;
       parameter Integer n = worldModel1.n;
 
       parameter Integer vb = 1 "|Unknowns| The left most unknown";
@@ -1221,7 +1221,7 @@ The initial condition is passed to the <i>IC</i> input, whereas the left and rig
 passed to the <i>BCL</i> and <i>BCR</i> inputs respectively.
 </p>
 <p>
-In the <i>PDE->MOL->Examples</i> Package many examples are implemented that show how to use the integrator block
+In the <i>PDELib->MOL->Examples</i> Package many examples are implemented that show how to use the integrator block
 </p>
 
 
@@ -1260,7 +1260,7 @@ This package contains integrator block that implements Method of Lines.
 
       package Wave
         model WaveEquation
-          inner PDE.World.worldModel worldModel1(qss=1,
+          inner PDELib.World.worldModel worldModel1(qss=1,
             u_xx=1,
             n=10)                      annotation (extent=[-100,88; -60,100]);
           annotation (Diagram(
@@ -1334,7 +1334,7 @@ The analytical solution of this problem is implemented in <b>WaveAnalytic</b> bl
             annotation (extent=[-40,52; -20,72]);
           Modelica.Blocks.Sources.RealExpression alpha2[worldModel1.n](y=1.0)
             annotation (extent=[-78,60; -66,76]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_xx u_xx(
+          PDELib.MOL.SpaceDerivative.Derivatives.u_xx u_xx(
                                     bcr=-1)
                                            annotation (extent=[-80,46; -64,60]);
           Integrator.UniversalIntegrator u(
@@ -1377,9 +1377,9 @@ The analytical solution of this problem is implemented in <b>WaveAnalytic</b> bl
         end WaveEquation;
 
         block WaveIC
-          extends PDE.Icons.BlockIcon;
+          extends PDELib.Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           inner parameter Integer n = worldModel1.n;
           Modelica.Blocks.Interfaces.RealOutput y[worldModel1.n]
             annotation (extent=[100,-10; 120,10]);
@@ -1443,7 +1443,7 @@ Implements the initial condition for the first equation of the wave equation sys
         block WaveAnalytic
           extends Icons.BlockIcon4;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
           Modelica.Blocks.Interfaces.RealOutput y[worldModel1.n]
@@ -1485,7 +1485,7 @@ This package contains wave equation solved with the Method of Lines.
 
       package VibratingString
         model VibratingString
-          inner PDE.World.worldModel worldModel1(qss=1, n=40)
+          inner PDELib.World.worldModel worldModel1(qss=1, n=40)
                                        annotation (extent=[-100,88; -60,100]);
           annotation (Diagram, Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Vibrating string equation</font></h3>
@@ -1524,9 +1524,9 @@ The analytical solution of this problem is implemented in <b>VibratingStringAnal
             annotation (extent=[-40,46; -20,66]);
           Modelica.Blocks.Sources.RealExpression alpha2[worldModel1.n](y=1.0)
             annotation (extent=[-58,54; -48,70]);
-          PDE.MOL.Examples.VibratingString.VSIC vSIC
+          PDELib.MOL.Examples.VibratingString.VSIC vSIC
                     annotation (extent=[-78,0; -60,18]);
-          PDE.MOL.Examples.VibratingString.VibratingStringAnalytical
+          PDELib.MOL.Examples.VibratingString.VibratingStringAnalytical
             vibratingStringAnalytical
             annotation (extent=[0,-70; 20,-50]);
           Integrator.UniversalIntegrator u(
@@ -1545,7 +1545,7 @@ The analytical solution of this problem is implemented in <b>VibratingStringAnal
             bcr=1) annotation (extent=[40,-40; 80,0]);
           Modelica.Blocks.Sources.RealExpression BCu
             annotation (extent=[0,16; 20,36]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_xx u_xx
+          PDELib.MOL.SpaceDerivative.Derivatives.u_xx u_xx
                                     annotation (extent=[-78,48; -60,60]);
         equation
           connect(product.y, add.u2) annotation (points=[-19,30; -16,30; -16,44; -2,
@@ -1585,7 +1585,7 @@ The analytical solution of this problem is implemented in <b>VibratingStringAnal
         block VSIC
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
         protected
@@ -1624,7 +1624,7 @@ for the <b>u</b> block of vibrating string equation.
         block VibratingStringAnalytical
           extends Icons.BlockIcon4;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Real alpha = 1.0;
 
@@ -1670,7 +1670,7 @@ This package contains vibrating string equation solved with the Method of Lines.
       package Diffusion
         model DiffusionEquation
 
-          PDE.MOL.Integrator.UniversalIntegrator Diffusion(
+          PDELib.MOL.Integrator.UniversalIntegrator Diffusion(
             vb=2,
             icb=2,
             bcl=1,
@@ -1719,7 +1719,7 @@ The analytical solution of this problem is implemented in <b>DiffusionAnalytic</
             annotation (extent=[-20,-40; 0,-20]);
           Modelica.Blocks.Sources.RealExpression BC
             annotation (extent=[-20,-16; 0,4]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_xx u_xx(
+          PDELib.MOL.SpaceDerivative.Derivatives.u_xx u_xx(
                                     bcr=-1) annotation (extent=[-60,40; -40,60]);
         equation
           connect(product.y, Diffusion.u)           annotation (points=[-1.2,42;
@@ -1739,8 +1739,8 @@ The analytical solution of this problem is implemented in <b>DiffusionAnalytic</
         end DiffusionEquation;
 
         block DiffusionIC
-          extends PDE.Icons.BlockIcon;
-          outer PDE.World.worldModel worldModel1;
+          extends PDELib.Icons.BlockIcon;
+          outer PDELib.World.worldModel worldModel1;
           inner parameter Integer n = worldModel1.n;
           annotation (Diagram, Icon(Text(
                 extent=[-50,42; 56,-40],
@@ -1799,7 +1799,7 @@ Implements the initial condition cos(x) of the diffusion equation
         block DIC1
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
         equation
@@ -1832,7 +1832,7 @@ Implements the initial condition of the diffusion equation
         block DiffusionAnalytic
           extends Icons.BlockIcon4;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Real alpha = 0.0;
 
@@ -1885,7 +1885,7 @@ This package contains diffusion equation solved with the Method of Lines.
 
           inner World.worldModel worldModel1(qss=2, n=10)
             annotation (extent=[-100,88; -60,100]);
-          PDE.MOL.Integrator.UniversalIntegrator Advection(
+          PDELib.MOL.Integrator.UniversalIntegrator Advection(
             ve=worldModel1.n,
             ice=worldModel1.n,
             bcr=0,
@@ -1929,7 +1929,7 @@ The analytical solution of this problem is implemented in <b>AdvectionAnalytic</
             annotation (extent=[-20,-40; 0,-20]);
           Modelica.Blocks.Sources.RealExpression Speed[worldModel1.n](y=-0.1)
             annotation (extent=[-60,16; -40,36]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator
             annotation (extent=[-60,40; -40,60]);
           Diffusion.DiffusionIC diffusionIC annotation (extent=[-20,10; 0,26]);
         equation
@@ -1951,7 +1951,7 @@ The analytical solution of this problem is implemented in <b>AdvectionAnalytic</
         block AdvectionAnalytic
           extends Icons.BlockIcon4;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Real speed = 0.1;
 
@@ -2004,15 +2004,15 @@ This package contains advection equation solved with the Method of Lines.
         model ShockWaveEquation
           inner World.worldModel worldModel1(                          n=10, qss=1)
             annotation (extent=[-100,88; -60,100]);
-          PDE.MOL.Integrator.UniversalIntegrator Density(
+          PDELib.MOL.Integrator.UniversalIntegrator Density(
             ve=worldModel1.n - 1,
             ice=worldModel1.n - 1,
             bcr=1)                 annotation (extent=[-42,42; -10,66]);
-          PDE.MOL.Integrator.UniversalIntegrator Velocity(
+          PDELib.MOL.Integrator.UniversalIntegrator Velocity(
             vb=2,
             icb=2,
             bcl=1) annotation (extent=[-42,-8; -8,14]);
-          PDE.MOL.Integrator.UniversalIntegrator Pressure(
+          PDELib.MOL.Integrator.UniversalIntegrator Pressure(
             ve=worldModel1.n - 1,
             ice=worldModel1.n - 1,
             bcr=1)                 annotation (extent=[-42,-72; -8,-50]);
@@ -2026,7 +2026,7 @@ This package contains advection equation solved with the Method of Lines.
             annotation (extent=[46,40; 52,48]);
           Modelica.Blocks.Math.Add add[worldModel1.n]
             annotation (extent=[66,48; 78,60]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator(
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator(
                                                       bcl=0, bcr=-1)
                                               annotation (extent=[6,76; 16,86]);
           annotation (Diagram, Documentation(info="<html>
@@ -2074,7 +2074,7 @@ The boundary conditions are
 
 <ul>
 </html>"));
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator1(
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator1(
                                                        bcl=-1)
                                                annotation (extent=[6,16; 16,26]);
           Modelica.Blocks.Math.Division division[worldModel1.n]
@@ -2231,7 +2231,7 @@ The boundary conditions are
         end ShockWaveEquation;
 
         block Friction
-          extends PDE.Icons.BlockIcon;
+          extends PDELib.Icons.BlockIcon;
 
         outer Integer n;
         parameter Real alpha = 0.1;
@@ -2297,7 +2297,7 @@ Implements the frictional resistance of the Euler system of equations
         end Friction;
 
         block Viscosity
-          extends PDE.Icons.BlockIcon;
+          extends PDELib.Icons.BlockIcon;
 
           outer Integer n;
 
@@ -2387,8 +2387,8 @@ Implements the pseudo viscous pressure of the Euler system of equations
         end Viscosity;
 
         block a
-          extends PDE.Icons.BlockIcon;
-          outer PDE.World.worldModel worldModel1;
+          extends PDELib.Icons.BlockIcon;
+          outer PDELib.World.worldModel worldModel1;
           Modelica.Blocks.Interfaces.RealInput u[worldModel1.n]
             annotation (extent=[-140,40; -100,80]);
           Modelica.Blocks.Interfaces.RealInput u1[worldModel1.n]
@@ -2417,9 +2417,9 @@ in the Euler system of equations
 
 <ul>
 </html>"));
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator1
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator1
                                annotation (extent=[0,-10; 20,10]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator2
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator2
                                annotation (extent=[-44,-70; -24,-50]);
           Modelica.Blocks.Math.Add3 add3_1[worldModel1.n]
             annotation (extent=[60,-10; 80,10]);
@@ -2427,7 +2427,7 @@ in the Euler system of equations
           inner parameter Integer n = worldModel1.n;
           Friction friction annotation (extent=[-40,60; -20,80]);
           Viscosity viscosity annotation (extent=[-40,14; -20,34]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator3
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator3
             annotation (extent=[-74,-30; -54,-10]);
         equation
           connect(u2, derivator2.u) annotation (points=[-120,-60; -46,-60],
@@ -2483,9 +2483,9 @@ This package contains Euler equations solved with the Method of Lines.
           Modelica.Blocks.Math.Product product[worldModel1.n]
             annotation (extent=[0,46; 12,58]);
           annotation (Diagram, Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Burger´s equation</font></h3>
+<h3><font color=\"#008000\" size=5>BurgerÂ´s equation</font></h3>
 <p>
-Implements the inviscid Burger´s equation
+Implements the inviscid BurgerÂ´s equation
 </p>
 
 <img align=middle src=\"..\\Images\\b1.png\">
@@ -2518,7 +2518,7 @@ The analytical solution of this problem is implemented in <b>BAN</b> block
             annotation (extent=[48,44; 58,54]);
           Modelica.Blocks.Sources.RealExpression const[worldModel1.n](y=-0.5)
             annotation (extent=[26,26; 34,42]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator
                                               annotation (extent=[24,46; 36,58]);
           BICx bICx annotation (extent=[-86,32; -74,44]);
           BAN bAN annotation (extent=[0,-20; 20,0]);
@@ -2553,7 +2553,7 @@ The analytical solution of this problem is implemented in <b>BAN</b> block
         block BICx
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
         equation
@@ -2566,7 +2566,7 @@ The analytical solution of this problem is implemented in <b>BAN</b> block
             annotation (extent=[100,-10; 120,10]);
           annotation (Diagram, Documentation(info="<html>
 <p>
-Implements the initial condition of the inviscid Burger´s equation
+Implements the initial condition of the inviscid BurgerÂ´s equation
 </p>
 
 <img align=middle src=\"..\\Images\\b2.png\">
@@ -2583,7 +2583,7 @@ Implements the initial condition of the inviscid Burger´s equation
         block BAN
           extends Icons.BlockIcon4;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
           Modelica.Blocks.Interfaces.RealInput u[worldModel1.n]
@@ -2599,7 +2599,7 @@ Implements the initial condition of the inviscid Burger´s equation
             annotation (extent=[100,-10; 120,10]);
           annotation (Diagram, Documentation(info="<html>
 <p>
-Implements the analytical solution of the inviscid Burger´s equation
+Implements the analytical solution of the inviscid BurgerÂ´s equation
 </p>
 
 <img align=middle src=\"..\\Images\\b5.png\">
@@ -2618,7 +2618,7 @@ Implements the analytical solution of the inviscid Burger´s equation
         end BAN;
         annotation (Documentation(info="<html>
 <p>
-This package contains Burger´s equation solved with the Method of Lines.
+This package contains BurgerÂ´s equation solved with the Method of Lines.
 </p>
 
 </pre>
@@ -2690,7 +2690,7 @@ and boundary conditions are
             annotation (extent=[20,0; 30,10]);
           Modelica.Blocks.Math.Add add1[worldModel1.n]
             annotation (extent=[38,14; 48,24]);
-          PDE.MOL.SpaceDerivative.Derivatives.u_x derivator
+          PDELib.MOL.SpaceDerivative.Derivatives.u_x derivator
                                               annotation (extent=[70,24; 80,34]);
           Modelica.Blocks.Math.Gain gain[worldModel1.n](k=-1)
             annotation (extent=[84,26; 88,32]);
@@ -2876,7 +2876,7 @@ The first equation is implemented in <b>u</b> block, the second in <b>v</b> bloc
         block TLIC
           extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           inner parameter Integer n = worldModel1.n;
 
           Modelica.Blocks.Interfaces.RealOutput y[worldModel1.n]
@@ -3053,7 +3053,7 @@ The analytical solution of this problem is implemented in <b>SSBAnalytic</b> blo
         block SSBIC
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
         protected
@@ -3090,7 +3090,7 @@ Implements the initial condition for the <b>v</b> block of the simple supported 
         block SSBAnalytic
           extends Icons.BlockIcon4;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
         protected
@@ -3238,7 +3238,7 @@ The analytical solution of this problem is implemented in <b>PAN</b> block.
         block PIC
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
         equation
@@ -3272,7 +3272,7 @@ Implements the initial condition for the time dependent poisson equation
         block PAN
           extends Icons.BlockIcon4;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
 
         equation
@@ -3325,7 +3325,7 @@ This package contains examples of partial differential equations solved with the
     annotation (Documentation(info="<html>
 <p>
 This package contains necessary blocks for solving partial differential equations with Method of Lines.
-To understand the use of the blocks, many examples are implemented (PDE->MOL->Examples).
+To understand the use of the blocks, many examples are implemented (PDELib->MOL->Examples).
 </p>
 
 </pre>
@@ -3342,7 +3342,7 @@ To understand the use of the blocks, many examples are implemented (PDE->MOL->Ex
 
         extends Icons.BlockIcon1;
 
-      outer PDE.World.worldModel worldModel1;
+      outer PDELib.World.worldModel worldModel1;
       parameter Integer n = worldModel1.n;
       //parameter Real beta = 1;
       parameter Integer vb = gcl+1 "|Unknowns| The left most unknown";
@@ -3546,7 +3546,7 @@ This package contains integrator block that implements Finite Volume Methods.
         block DiffusionFlux
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -3612,7 +3612,7 @@ This package contains the DiffusionFlux block for the computation of fluxes at t
         block Upwind
           extends Icons.BlockIcon5;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -3682,7 +3682,7 @@ This package contains the Upwind block for the computation of fluxes at the cell
         block LF
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         // parameter Integer gcl = worldModel1.gcl;
         // parameter Integer gcr = worldModel1.gcr;
@@ -3755,7 +3755,7 @@ This package contains the LF block for the computation of fluxes at the cell bou
         block LaxWendroff
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -3808,7 +3808,7 @@ This package contains the LaxWendroffFlux block for the computation of fluxes at
           block Daverage
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
 
           equation
@@ -3842,7 +3842,7 @@ Takes the reconstructed values rho<sub>i</sub><sup>+</sup> and rho<sub>i</sub><s
           block Vaverage
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
 
             Modelica.Blocks.Interfaces.RealInput u2[worldModel1.n + 1]
@@ -3880,7 +3880,7 @@ Takes the reconstructed values rho<sub>i</sub><sup>+</sup>, rho<sub>i</sub><sup>
           block Haverage
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
 
           equation
@@ -3918,7 +3918,7 @@ Takes the reconstructed values rho<sub>i</sub><sup>+</sup>, rho<sub>i</sub><sup>
           block Aaverage
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Real lambda = 1.4;
 
@@ -3953,7 +3953,7 @@ where gamma = 1.4.
           end Aaverage;
           annotation (Documentation(info="<html>
 <p>
-This package contains blocks for the computation of roe´s averages
+This package contains blocks for the computation of roeÂ´s averages
 </p>
 
 <img align=middle src=\"..\\Images\\r1.png\">
@@ -3969,7 +3969,7 @@ This package contains blocks for the computation of roe´s averages
           block Deltau
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
 
           equation
@@ -4012,7 +4012,7 @@ This package contains DeltaU block that computes the difference between the reco
           block Lambdas
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           inner parameter Integer n = worldModel1.n;
 
             Modelica.Blocks.Interfaces.RealInput u[worldModel1.n + 1]
@@ -4080,7 +4080,7 @@ This package contains Lambdas block that computes the eigenvalues of the Euler s
           block Waves
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
 
           equation
@@ -4160,7 +4160,7 @@ This package contains Waves block that computes the eigenvectors of the Euler sy
 
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
 
           equation
@@ -4239,7 +4239,7 @@ This package contains <i>a</i> block that computes the wave strengths.
           block FluxDiff
           extends Icons.BlockIcon;
 
-            outer PDE.World.worldModel worldModel1;
+            outer PDELib.World.worldModel worldModel1;
             parameter Integer n=worldModel1.n;
             parameter Integer m=worldModel1.m;
 
@@ -4336,7 +4336,7 @@ This package contains FluxDiff block that computes the waves W+ and W-.
           block Integrator
             extends Icons.BlockIcon1;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer m = worldModel1.m;
 
@@ -4464,7 +4464,7 @@ are the sum of all right-going waves, respectively left-going waves, from the in
           end Integrator;
           annotation (Documentation(info="<html>
 <p>
-This package contains integrator block that implements Finite Volume Methods with Roe´s flux.
+This package contains integrator block that implements Finite Volume Methods with RoeÂ´s flux.
 </p>
 
 </pre>
@@ -4478,7 +4478,7 @@ This package contains integrator block that implements Finite Volume Methods wit
           block Filter
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer gcl = worldModel1.gcl;
           parameter Integer gcr = worldModel1.gcr;
@@ -4525,7 +4525,7 @@ This package contains Filter block that filters the requested average vector fro
 
         annotation (Documentation(info="<html>
 <p>
-This package contains blocks for the computation of Roe´s flux.
+This package contains blocks for the computation of RoeÂ´s flux.
 </p>
 
 </pre>
@@ -4551,7 +4551,7 @@ This package contains different flux blocks.
         block D1minus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -4597,7 +4597,7 @@ Implements the lateral derivative d<sub>1</sub> for u<sup>-</sup>(x<sub>i+1/2</s
         block D2minus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -4643,7 +4643,7 @@ Implements the lateral derivative d<sub>2</sub> for u<sup>-</sup>(x<sub>i+1/2</s
         block D1plus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -4689,7 +4689,7 @@ Implements the lateral derivative d<sub>1</sub> for u<sup>+</sup>(x<sub>i+1/2</s
         block D2plus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -4751,7 +4751,7 @@ Implements the lateral derivatives d<sub>1</sub> and d<sub>2</sub>
 
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         // parameter Integer gcl = worldModel1.gcl;
         // parameter Integer gcr = worldModel1.gcr;
@@ -4826,7 +4826,7 @@ where <i>tol = 0.1h^q</i>, <i>q = 1.4</i> typically.
         block C2
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         // parameter Integer gcl = worldModel1.gcl;
         // parameter Integer gcr = worldModel1.gcr;
@@ -4875,7 +4875,7 @@ Implements the constant value c<sub>2</sub> needed for the logarithmic reconstru
         block C3
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         // parameter Integer gcl = worldModel1.gcl;
         // parameter Integer gcr = worldModel1.gcr;
@@ -4944,7 +4944,7 @@ Implements the constant value c<sub>3</sub> needed for the logarithmic reconstru
         block C4
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         // parameter Integer gcl = worldModel1.gcl;
         // parameter Integer gcr = worldModel1.gcr;
@@ -5018,7 +5018,7 @@ where <i>tol = 0.1h^q</i>, <i>q = 1.4</i> typically.
         block n_plus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         // parameter Integer gcl = worldModel1.gcl;
         // parameter Integer gcr = worldModel1.gcr;
@@ -5064,7 +5064,7 @@ Implements the function n<sup>+</sup>(x) needed for the logarithmic reconstructi
         block n_minus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         // parameter Integer gcl = worldModel1.gcl;
         // parameter Integer gcr = worldModel1.gcr;
@@ -5124,12 +5124,12 @@ Implements the functions n<sup>+</sup>(x) and n<sup>-</sup>(x) needed for the lo
         block Rminus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         inner parameter Integer n = worldModel1.n;
         inner parameter Integer gcl = worldModel1.gcl;
         inner parameter Integer gcr = worldModel1.gcr;
 
-        // outer PDE.World.worldModel worldModel1;
+        // outer PDELib.World.worldModel worldModel1;
         // parameter Integer n = worldModel1.n;
         // parameter Real deltax = 1/(n-1);
         //
@@ -5192,9 +5192,9 @@ Implements
             annotation (extent=[50,-6; 62,6]);
           Modelica.Blocks.Sources.RealExpression deltax[worldModel1.n + 1](y=1/(
                 worldModel1.n))     annotation (extent=[-34,-26; -6,-6]);
-          PDE.FiniteVolume.LDLR.n.n_plus n_plus1
+          PDELib.FiniteVolume.LDLR.n.n_plus n_plus1
                          annotation (extent=[-80,74; -68,86]);
-          PDE.FiniteVolume.LDLR.n.n_plus n_plus2
+          PDELib.FiniteVolume.LDLR.n.n_plus n_plus2
                          annotation (extent=[-80,54; -68,66]);
         equation
           connect(u1, n_plus1.u) annotation (points=[-108,80; -81.2,80], style(
@@ -5226,7 +5226,7 @@ Implements
         block Rplus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         inner parameter Integer n = worldModel1.n;
         inner parameter Integer gcl = worldModel1.gcl;
         inner parameter Integer gcr = worldModel1.gcr;
@@ -5274,9 +5274,9 @@ Implements
 <p><b>Release Notes: </b></p>
 <ul>
 </html>"));
-          PDE.FiniteVolume.LDLR.n.n_minus n_minus1
+          PDELib.FiniteVolume.LDLR.n.n_minus n_minus1
                            annotation (extent=[-80,74; -68,86]);
-          PDE.FiniteVolume.LDLR.n.n_minus n_minus2
+          PDELib.FiniteVolume.LDLR.n.n_minus n_minus2
                            annotation (extent=[-80,44; -68,56]);
           Modelica.Blocks.Math.Product product[worldModel1.n + 1]
             annotation (extent=[-50,74; -38,86]);
@@ -5332,7 +5332,7 @@ Implements
         block LDLRminus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         inner parameter Integer n = worldModel1.n;
         inner parameter Integer gcl = worldModel1.gcl;
         inner parameter Integer gcr = worldModel1.gcr;
@@ -5358,19 +5358,19 @@ Combine d<sub>1</sub>-, d<sub>2</sub>-, c<sub>1</sub>, c<sub>2</sub>, c<sub>3</s
 <p><b>Release Notes: </b></p>
 <ul>
 </html>"));
-          PDE.FiniteVolume.LDLR.d.D1minus d1_1
+          PDELib.FiniteVolume.LDLR.d.D1minus d1_1
                                              annotation (extent=[-80,14; -68,26]);
-          PDE.FiniteVolume.LDLR.d.D2minus d2_1
+          PDELib.FiniteVolume.LDLR.d.D2minus d2_1
             annotation (extent=[-80,-26; -68,-14]);
-          PDE.FiniteVolume.LDLR.c.C1 c1_1
+          PDELib.FiniteVolume.LDLR.c.C1 c1_1
                   annotation (extent=[-48,-26; -34,-14]);
-          PDE.FiniteVolume.LDLR.c.C2 c2_1
+          PDELib.FiniteVolume.LDLR.c.C2 c2_1
                   annotation (extent=[-22,10; -10,22]);
-          PDE.FiniteVolume.LDLR.c.C3 c3_1
+          PDELib.FiniteVolume.LDLR.c.C3 c3_1
                   annotation (extent=[0,-16; 18,-4]);
-          PDE.FiniteVolume.LDLR.c.C4 c4_1
+          PDELib.FiniteVolume.LDLR.c.C4 c4_1
                   annotation (extent=[28,-26; 46,-14]);
-          PDE.FiniteVolume.LDLR.R.Rminus reconstruction
+          PDELib.FiniteVolume.LDLR.R.Rminus reconstruction
             annotation (extent=[56,-14; 88,14]);
         equation
           connect(u, d1_1.u) annotation (points=[-120,0; -90,0; -90,20; -81.2,20],
@@ -5416,7 +5416,7 @@ Combine d<sub>1</sub>-, d<sub>2</sub>-, c<sub>1</sub>, c<sub>2</sub>, c<sub>3</s
         block LDLRplus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         inner parameter Integer n = worldModel1.n;
         inner parameter Integer gcl = worldModel1.gcl;
         inner parameter Integer gcr = worldModel1.gcr;
@@ -5442,19 +5442,19 @@ Combine d<sub>1</sub>+, d<sub>2</sub>+, c<sub>1</sub>, c<sub>2</sub>, c<sub>3</s
 <p><b>Release Notes: </b></p>
 <ul>
 </html>"));
-          PDE.FiniteVolume.LDLR.d.D1plus d1plus
+          PDELib.FiniteVolume.LDLR.d.D1plus d1plus
                         annotation (extent=[-80,12; -64,28]);
-          PDE.FiniteVolume.LDLR.d.D2plus d2plus
+          PDELib.FiniteVolume.LDLR.d.D2plus d2plus
                         annotation (extent=[-80,-28; -64,-12]);
-          PDE.FiniteVolume.LDLR.c.C1 c1_1
+          PDELib.FiniteVolume.LDLR.c.C1 c1_1
                   annotation (extent=[-40,-26; -26,-14]);
-          PDE.FiniteVolume.LDLR.c.C2 c2_1
+          PDELib.FiniteVolume.LDLR.c.C2 c2_1
                   annotation (extent=[-14,14; -2,26]);
-          PDE.FiniteVolume.LDLR.c.C3 c3_1
+          PDELib.FiniteVolume.LDLR.c.C3 c3_1
                   annotation (extent=[6,-12; 24,2]);
-          PDE.FiniteVolume.LDLR.c.C4 c4_1
+          PDELib.FiniteVolume.LDLR.c.C4 c4_1
                   annotation (extent=[36,-30; 50,-18]);
-          PDE.FiniteVolume.LDLR.R.Rplus reconstructionPlus
+          PDELib.FiniteVolume.LDLR.R.Rplus reconstructionPlus
             annotation (extent=[58,-12; 84,12]);
         equation
           connect(u, d1plus.u) annotation (points=[-120,0; -92,0; -92,20; -81.6,
@@ -5521,7 +5521,7 @@ This package contains two blocks, LDLRminus and LDLRplus, that combine d<sub>1</
         block u_minus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -5566,7 +5566,7 @@ Implements the reconstruction of the value u<sup>-</sup> at the interface x<sub>
         block u_plus
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -5658,10 +5658,10 @@ where <i>tol = 0.1h^q</i>, <i>q = 1.4</i> typically and the lateral derivatives 
 </html>"));
       package Reconstruction
         block Rec
-          import PDE;
+          import PDELib;
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
           parameter Integer method = worldModel1.qss;
           inner parameter Integer n = worldModel1.n;
           inner parameter Integer gcl = worldModel1.gcl;
@@ -5708,13 +5708,13 @@ LDLR-, LDLR+, u- and u+ blocks.
 <p><b>Release Notes: </b></p>
 <ul>
 </html>"));
-          PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
+          PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
                                           annotation (extent=[-40,20; -20,40]);
-          PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
+          PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
                                         annotation (extent=[-40,-40; -20,-20]);
-          PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus
+          PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus
             annotation (extent=[0,20; 20,40]);
-          PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus
+          PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus
             annotation (extent=[0,-40; 20,-20]);
         equation
           connect(lDLRminus_plus.y, u_minus_plus.u1) annotation (points=[-19,30;
@@ -5760,7 +5760,7 @@ LDLR-, LDLR+, u- and u+ blocks.
       package Burger
 
         model BurgerEquationLDLR
-          PDE.FiniteVolume.FVMIntegrator.FVIntegrator Burger(
+          PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Burger(
                                                       bcr=0,
             gcl=2,
             gcr=2,
@@ -5768,18 +5768,18 @@ LDLR-, LDLR+, u- and u+ blocks.
             icb=worldModel1.gcl + 1,
             bcl=0)
             annotation (extent=[-60,24; -20,50]);
-          PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
+          PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
                                              annotation (extent=[0,52; 22,60]);
-          PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
+          PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
                                            annotation (extent=[0,40; 22,48]);
-          PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus
+          PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus
                                          annotation (extent=[40,52; 56,60]);
-          PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus
+          PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus
                                        annotation (extent=[40,40; 56,48]);
           annotation (Diagram, Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Burger´s equation</font></h3>
+<h3><font color=\"#008000\" size=5>BurgerÂ´s equation</font></h3>
 <p>
-Implements the inviscid Burger´s equation
+Implements the inviscid BurgerÂ´s equation
 </p>
 
 <img align=middle src=\"..\\Images\\b1.png\">
@@ -5802,7 +5802,7 @@ and boundary conditions are
 </p>
 
 <p>
-The analytical solution of this problem is implemented in PDE->MOL->Examples->Burger->BAN block
+The analytical solution of this problem is implemented in PDELib->MOL->Examples->Burger->BAN block
 </p>
 
 </pre>
@@ -5820,7 +5820,7 @@ The analytical solution of this problem is implemented in PDE->MOL->Examples->Bu
                                 annotation (extent=[-26,-16; -20,-10]);
           Modelica.Blocks.Sources.RealExpression const[worldModel1.n + 1](y=2.0)
             annotation (extent=[-50,-34; -44,-20]);
-          PDE.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
+          PDELib.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
                                               alpha=0.9)
                                 annotation (extent=[0,-16; 18,2]);
           inner World.worldModel worldModel1(
@@ -5892,7 +5892,7 @@ The analytical solution of this problem is implemented in PDE->MOL->Examples->Bu
         end BurgerEquationLDLR;
         annotation (Documentation(info="<html>
 <p>
-This package contains Burger´s equation solved with the Finite Volume Methods.
+This package contains BurgerÂ´s equation solved with the Finite Volume Methods.
 </p>
 
 </pre>
@@ -5904,13 +5904,13 @@ This package contains Burger´s equation solved with the Finite Volume Methods.
 
       package BuckleyLeverett
         model BuckleyLeverettEquation
-          PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
+          PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
                                              annotation (extent=[-8,52; 14,60]);
-          PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
+          PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
                                            annotation (extent=[-8,20; 14,28]);
-          PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus
+          PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus
                                          annotation (extent=[26,52; 42,60]);
-          PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus
+          PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus
                                        annotation (extent=[26,20; 42,28]);
           annotation (Diagram, Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Buckley-Leverett equation</font></h3>
@@ -5974,7 +5974,7 @@ and boundary conditions are
             annotation (extent=[56,-28; 64,-20]);
           Modelica.Blocks.Math.Division division1[worldModel1.n + 1]
             annotation (extent=[56,-42; 64,-34]);
-          PDE.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
+          PDELib.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
                                               alpha=0.5)
                      annotation (extent=[70,-36; 82,-24]);
           Modelica.Blocks.Sources.RealExpression IC[worldModel1.n](y=1)
@@ -5985,7 +5985,7 @@ and boundary conditions are
             annotation (extent=[-88,14; -80,26]);
           inner World.worldModel worldModel1(n=40)
             annotation (extent=[-20,88; 20,100]);
-          PDE.FiniteVolume.FVMIntegrator.FVIntegrator BuckleyLeverett(
+          PDELib.FiniteVolume.FVMIntegrator.FVIntegrator BuckleyLeverett(
             ve=worldModel1.gcl + worldModel1.n,
             ice=worldModel1.gcl + worldModel1.n,
             vb=worldModel1.gcl + 1,
@@ -6100,19 +6100,19 @@ This package contains Buckley-Leverett equation solved with the Finite Volume Me
       package EulerSystem
         package BaseModel
           model ShockWaveLDLR
-            PDE.FiniteVolume.FVMIntegrator.FVIntegrator Density
+            PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Density
               annotation (extent=[-60,60; -34,80]);
-            PDE.FiniteVolume.FVMIntegrator.FVIntegrator Momentum
+            PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Momentum
               annotation (extent=[-60,0; -34,20]);
-            PDE.FiniteVolume.FVMIntegrator.FVIntegrator Energy
+            PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Energy
               annotation (extent=[-60,-60; -34,-40]);
-            PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
+            PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
                                                annotation (extent=[-12,72; 10,80]);
-            PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
+            PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
                                              annotation (extent=[-12,58; 10,66]);
-            PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus
+            PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus
                                            annotation (extent=[26,72; 46,80]);
-            PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus
+            PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus
                                          annotation (extent=[26,58; 46,66]);
             annotation (Diagram, Documentation(info="<html>
 <p>
@@ -6124,27 +6124,27 @@ Base model for the Euler equations.
 
 <ul>
 </html>"));
-            PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus1
+            PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus1
               annotation (extent=[-12,12; 10,20]);
-            PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus1
+            PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus1
                                               annotation (extent=[-12,-2; 10,6]);
-            PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus1
+            PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus1
                                             annotation (extent=[26,12; 46,20]);
-            PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus1
+            PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus1
                                           annotation (extent=[26,-2; 46,6]);
-            PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus2
+            PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus2
               annotation (extent=[-12,-48; 10,-40]);
-            PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus2
+            PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus2
               annotation (extent=[-12,-62; 10,-54]);
-            PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus2
+            PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus2
                                             annotation (extent=[26,-48; 46,-40]);
-            PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus2
+            PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus2
                                           annotation (extent=[26,-62; 46,-54]);
             Modelica.Blocks.Math.Product product[worldModel1.n + 1]
               annotation (extent=[56,72; 64,80]);
             Modelica.Blocks.Math.Product product1[worldModel1.n + 1]
               annotation (extent=[56,58; 64,66]);
-            PDE.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF
+            PDELib.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF
                        annotation (extent=[74,62; 88,76]);
             Modelica.Blocks.Math.Division division[worldModel1.n + 1]
               annotation (extent=[26,40; 34,48]);
@@ -6176,7 +6176,7 @@ Base model for the Euler equations.
               annotation (extent=[74,12; 82,20]);
             Modelica.Blocks.Math.Add add3[worldModel1.n + 1]
               annotation (extent=[74,0; 82,8]);
-            PDE.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF1
+            PDELib.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF1
                         annotation (extent=[88,6; 98,16]);
             Modelica.Blocks.Math.Add add4[worldModel1.n + 1]
               annotation (extent=[60,-48; 68,-40]);
@@ -6186,7 +6186,7 @@ Base model for the Euler equations.
               annotation (extent=[76,-48; 84,-40]);
             Modelica.Blocks.Math.Product product9[worldModel1.n + 1]
               annotation (extent=[76,-62; 84,-54]);
-            PDE.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF2
+            PDELib.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF2
                         annotation (extent=[90,-54; 98,-46]);
             inner World.worldModel worldModel1(n=10)
               annotation (extent=[-20,90; 20,100]);
@@ -6377,7 +6377,7 @@ This package contains the base model for the Euler equations.
           package LaxFriedrich
             model SOD
               extends
-                PDE.FiniteVolume.Examples.EulerSystem.BaseModel.ShockWaveLDLR(
+                PDELib.FiniteVolume.Examples.EulerSystem.BaseModel.ShockWaveLDLR(
                                     worldModel1(n=10),
                 Density(
                   vb=worldModel1.gcl + 1,
@@ -6492,7 +6492,7 @@ This package contains Euler equations solved with the Finite Volume Methods by u
               LDLR.Reconstruction.Rec rec2
                                       annotation (extent=[-40,-84; -26,-74]);
               annotation (Diagram, Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Euler equations solved with Roe´s flux</font></h3>
+<h3><font color=\"#008000\" size=5>Euler equations solved with RoeÂ´s flux</font></h3>
 <p>
 Implements the Euler system of equations
 </p>
@@ -6501,7 +6501,7 @@ Implements the Euler system of equations
 </p>
 
 <p>
-with Roe´s flux. The initial conditions are
+with RoeÂ´s flux. The initial conditions are
 </p>
 
 <img align=middle src=\"..\\Images\\sw4.png\">
@@ -6534,35 +6534,35 @@ that are computed at each time step at each interface by the corresponding block
 
 <ul>
 </html>"));
-              PDE.FiniteVolume.Fluxes.Roe.Averages.Vaverage vaverage
+              PDELib.FiniteVolume.Fluxes.Roe.Averages.Vaverage vaverage
                                          annotation (extent=[-72,80; -60,92]);
-              PDE.FiniteVolume.Fluxes.Roe.Averages.Aaverage aaverage
+              PDELib.FiniteVolume.Fluxes.Roe.Averages.Aaverage aaverage
                                          annotation (extent=[-72,64; -60,76]);
-              PDE.FiniteVolume.Fluxes.Roe.Averages.Haverage haverage
+              PDELib.FiniteVolume.Fluxes.Roe.Averages.Haverage haverage
                                          annotation (extent=[-72,48; -60,60]);
-              PDE.FiniteVolume.Fluxes.Roe.Averages.Daverage daverage
+              PDELib.FiniteVolume.Fluxes.Roe.Averages.Daverage daverage
                                          annotation (extent=[-72,32; -60,44]);
               inner World.worldModel worldModel1(m=3,
                 n=10,
                 deltat=0)
                 annotation (extent=[-20,90; 20,100]);
-              PDE.FiniteVolume.Fluxes.Roe.Lambda.Lambdas lambdas
+              PDELib.FiniteVolume.Fluxes.Roe.Lambda.Lambdas lambdas
                                      annotation (extent=[-42,70; -24,86]);
-              PDE.FiniteVolume.Fluxes.Roe.Wave.Waves waves
+              PDELib.FiniteVolume.Fluxes.Roe.Wave.Waves waves
                                annotation (extent=[-42,48; -24,64]);
-              PDE.FiniteVolume.Fluxes.Roe.WaveStrength.a a
+              PDELib.FiniteVolume.Fluxes.Roe.WaveStrength.a a
                                annotation (extent=[-42,18; -18,40]);
-              PDE.FiniteVolume.Fluxes.Roe.DeltaU.Deltau deltau
+              PDELib.FiniteVolume.Fluxes.Roe.DeltaU.Deltau deltau
                                    annotation (extent=[-72,20; -60,28]);
-              PDE.FiniteVolume.Fluxes.Roe.DeltaU.Deltau deltau1
+              PDELib.FiniteVolume.Fluxes.Roe.DeltaU.Deltau deltau1
                                     annotation (extent=[-72,10; -60,18]);
-              PDE.FiniteVolume.Fluxes.Roe.DeltaU.Deltau deltau2
+              PDELib.FiniteVolume.Fluxes.Roe.DeltaU.Deltau deltau2
                                     annotation (extent=[-72,0; -60,8]);
-              PDE.FiniteVolume.Fluxes.Roe.FluxDifference.FluxDiff fluxDiff
+              PDELib.FiniteVolume.Fluxes.Roe.FluxDifference.FluxDiff fluxDiff
                                                annotation (extent=[18,66; 40,86]);
-              PDE.FiniteVolume.Fluxes.Roe.FluxDifference.FluxDiff fluxDiff1
+              PDELib.FiniteVolume.Fluxes.Roe.FluxDifference.FluxDiff fluxDiff1
                                                 annotation (extent=[18,40; 40,60]);
-              PDE.FiniteVolume.Fluxes.Roe.FluxDifference.FluxDiff fluxDiff2
+              PDELib.FiniteVolume.Fluxes.Roe.FluxDifference.FluxDiff fluxDiff2
                                                 annotation (extent=[18,14; 40,34]);
               Modelica.Blocks.Math.Add3 add3_1[worldModel1.m,worldModel1.n + 1]
                 annotation (extent=[60,52; 80,72]);
@@ -6604,22 +6604,22 @@ that are computed at each time step at each interface by the corresponding block
                 annotation (extent=[62,-74; 70,-66]);
               Modelica.Blocks.Math.Division hplus[worldModel1.n + 1]
                 annotation (extent=[62,-94; 70,-86]);
-              PDE.FiniteVolume.Fluxes.Roe.IntegratorRoe.Integrator integrator(
+              PDELib.FiniteVolume.Fluxes.Roe.IntegratorRoe.Integrator integrator(
                                                            bcl=0, bcr=0)
                 annotation (extent=[-82,-94; -60,-74]);
-              PDE.FiniteVolume.Fluxes.Roe.AverageFilter.Filter Density
+              PDELib.FiniteVolume.Fluxes.Roe.AverageFilter.Filter Density
                                            annotation (extent=[-84,-26; -60,-14]);
-              PDE.FiniteVolume.Fluxes.Roe.AverageFilter.Filter Momentum(
+              PDELib.FiniteVolume.Fluxes.Roe.AverageFilter.Filter Momentum(
                                                      row=2)
                 annotation (extent=[-84,-48; -60,-36]);
-              PDE.FiniteVolume.Fluxes.Roe.AverageFilter.Filter Energy(
+              PDELib.FiniteVolume.Fluxes.Roe.AverageFilter.Filter Energy(
                                                    row=3)
                 annotation (extent=[-84,-70; -60,-58]);
-              PDE.FiniteVolume.Examples.EulerSystem.SODProblem.Roe.IC iC
+              PDELib.FiniteVolume.Examples.EulerSystem.SODProblem.Roe.IC iC
                     annotation (extent=[-100,-80; -94,-74]);
-              PDE.FiniteVolume.Examples.EulerSystem.SODProblem.Roe.BCL bCL
+              PDELib.FiniteVolume.Examples.EulerSystem.SODProblem.Roe.BCL bCL
                       annotation (extent=[-100,-90; -94,-84]);
-              PDE.FiniteVolume.Examples.EulerSystem.SODProblem.Roe.BCR bCR
+              PDELib.FiniteVolume.Examples.EulerSystem.SODProblem.Roe.BCR bCR
                       annotation (extent=[-100,-100; -94,-94]);
             equation
               connect(vaverage.y, lambdas.u) annotation (points=[-59.4,86; -52,86;
@@ -6855,7 +6855,7 @@ that are computed at each time step at each interface by the corresponding block
             block IC
               extends Icons.BlockIcon;
 
-            outer PDE.World.worldModel worldModel1;
+            outer PDELib.World.worldModel worldModel1;
             parameter Integer n = worldModel1.n;
             parameter Integer m = worldModel1.m;
 
@@ -6887,7 +6887,7 @@ This block implements initial condition for the Euler equations.
             block BCL
               extends Icons.BlockIcon;
 
-            outer PDE.World.worldModel worldModel1;
+            outer PDELib.World.worldModel worldModel1;
             parameter Integer gcl = worldModel1.gcl;
 
               Modelica.Blocks.Interfaces.RealOutput y[worldModel1.m,worldModel1.gcl]
@@ -6917,7 +6917,7 @@ This block implements left boundary condition for the Euler equations.
             block BCR
               extends Icons.BlockIcon;
 
-            outer PDE.World.worldModel worldModel1;
+            outer PDELib.World.worldModel worldModel1;
             parameter Integer gcr = worldModel1.gcr;
 
             equation
@@ -6946,7 +6946,7 @@ This block implements right boundary condition for the Euler equations.
             end BCR;
             annotation (Documentation(info="<html>
 <p>
-This package contains Euler equations solved with the Finite Volume Methods by using the Roe´s flux.
+This package contains Euler equations solved with the Finite Volume Methods by using the RoeÂ´s flux.
 </p>
 
 </pre>
@@ -6957,7 +6957,7 @@ This package contains Euler equations solved with the Finite Volume Methods by u
           end Roe;
           annotation (Documentation(info="<html>
 <p>
-This package contains Euler equations solved with the Finite Volume Methods by using two numerical flux approximations: Lax-Friedrichs and Roe´s fluxes.
+This package contains Euler equations solved with the Finite Volume Methods by using two numerical flux approximations: Lax-Friedrichs and RoeÂ´s fluxes.
 </p>
 
 </pre>
@@ -6982,7 +6982,7 @@ This package contains Euler equations solved with the Finite Volume Methods.
       package Diffusion
 
         model DiffusionEquation
-          PDE.FiniteVolume.FVMIntegrator.FVIntegrator Diffusion(
+          PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Diffusion(
                                                   bcr=0,
             vb=3,
             icb=3,
@@ -7027,7 +7027,7 @@ The analytical solution of this problem is implemented in DiffusionAnalytic bloc
             gcr=1,
             n=10)
             annotation (extent=[-20,90; 20,100]);
-          PDE.FiniteVolume.Fluxes.DiffusionFlux.DiffusionFlux diffusionFlux(
+          PDELib.FiniteVolume.Fluxes.DiffusionFlux.DiffusionFlux diffusionFlux(
                                       beta=0.01)
             annotation (extent=[6,28; 44,46]);
           Modelica.Blocks.Sources.RealExpression BCR[worldModel1.gcr]
@@ -7063,7 +7063,7 @@ This package contains diffusion equation solved with the Finite Volume Methods.
 
         package LaxFriedrich
           model AdvectionLF
-            PDE.FiniteVolume.FVMIntegrator.FVIntegrator Advection(
+            PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Advection(
                                                            bcr=0, bcl=0)
               annotation (extent=[-54,0; -24,28]);
             inner World.worldModel worldModel1(n=10)
@@ -7097,13 +7097,13 @@ The analytical solution of this problem is implemented in AdvectionAnalytic bloc
 
 <ul>
 </html>"));
-            PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
+            PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
                                                annotation (extent=[-6,18; 16,28]);
-            PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
+            PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
                                              annotation (extent=[-6,0; 16,10]);
-            PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus
+            PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus
                                            annotation (extent=[34,18; 54,28]);
-            PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus
+            PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus
                                          annotation (extent=[34,0; 54,10]);
             Modelica.Blocks.Math.Product product[worldModel1.n + 1]
               annotation (extent=[68,20; 76,28]);
@@ -7111,7 +7111,7 @@ The analytical solution of this problem is implemented in AdvectionAnalytic bloc
               annotation (extent=[68,0; 76,8]);
             Modelica.Blocks.Sources.RealExpression const[worldModel1.n + 1](y=0.1)
               annotation (extent=[54,8; 62,20]);
-            PDE.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
+            PDELib.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
                                                 alpha=0.2)
                        annotation (extent=[82,10; 92,20]);
             Modelica.Blocks.Sources.RealExpression BCR[worldModel1.gcr]
@@ -7180,10 +7180,10 @@ This package contains advection equation solved with the Finite Volume Methods b
 
         package Upwind
           model AdvectionUpwind
-            PDE.FiniteVolume.FVMIntegrator.FVIntegrator Advection(
+            PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Advection(
                                                     bcl=0, bcr=0)
               annotation (extent=[-40,20; 0,60]);
-            PDE.FiniteVolume.Fluxes.UpwindFlux.Upwind upwindNew
+            PDELib.FiniteVolume.Fluxes.UpwindFlux.Upwind upwindNew
                                        annotation (extent=[30,36; 50,56]);
             annotation (Diagram, Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Advection equation solved with Upwind flux</font></h3>
@@ -7255,7 +7255,7 @@ This package contains advection equation solved with the Finite Volume Methods b
 
         package LaxWendroff
           model AdvectionLW
-            PDE.FiniteVolume.FVMIntegrator.FVIntegrator Advection(
+            PDELib.FiniteVolume.FVMIntegrator.FVIntegrator Advection(
                                                     bcl=0, bcr=0)
               annotation (extent=[-40,20; 0,60]);
             annotation (Diagram, Documentation(info="<html>
@@ -7297,7 +7297,7 @@ The analytical solution of this problem is implemented in AdvectionAnalytic bloc
               annotation (extent=[-76,42; -66,52]);
             inner World.worldModel worldModel1(deltat=0.2, n=40)
               annotation (extent=[-20,88; 20,100]);
-            PDE.FiniteVolume.Fluxes.LaxWendroffFlux.LaxWendroff lW1_1
+            PDELib.FiniteVolume.Fluxes.LaxWendroffFlux.LaxWendroff lW1_1
                              annotation (extent=[32,42; 44,54]);
           equation
             connect(BCR.y, Advection.u4) annotation (points=[-59,8; -50,8; -50,24;
@@ -7356,7 +7356,7 @@ This package contains examples of partial differential equations solved with the
         block FLIntegrator
           extends Icons.BlockIcon1;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Real beta = 1;
@@ -7500,7 +7500,7 @@ This package contains integrator block that implements Finite Volume Methods by 
         block deltaQ
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -7556,7 +7556,7 @@ This package contains deltaQ block that computes the jumps at the cell boundarie
         block teta
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -7660,7 +7660,7 @@ This package contains tetha block that computes theta values at each cell interf
         block WaveP
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer m = worldModel1.m;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
@@ -7728,7 +7728,7 @@ This package contains WaveP block that computes waves at each cell interface.
         block Fluctuation
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -7820,7 +7820,7 @@ This package contains Fluctuation block that computes positive and negative fluc
         block Alpha
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -7867,7 +7867,7 @@ This package contains Alpha block that filters the alpha matrix.
         block LimitedAlpha
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -7926,7 +7926,7 @@ This package contains LimitedAlpha block that computes the limithed alpha values
         block Riemann
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer m = worldModel1.m;
         parameter Integer n = worldModel1.n;
 
@@ -7983,7 +7983,7 @@ This package contains Riemann block that solves the Riemann problem.
         block FluxLimited
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -8046,7 +8046,7 @@ This package contains FluxLimited block that computes fluxes at each cell interf
         block Upwind
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer gcl = worldModel1.gcl;
         parameter Integer gcr = worldModel1.gcr;
@@ -8082,7 +8082,7 @@ The upwind method takes as input the <b>teta</b> matrix and gives as output matr
         block LaxWendroff
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -8144,7 +8144,7 @@ which has ones in the j-th row and zeros elsewhere.
         block BeamWarming
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -8200,7 +8200,7 @@ which has in the j-th row the entries of the p-th row of the theta matrix and ze
         block Fromm
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -8267,7 +8267,7 @@ This package offers some linear methods for solving linear constant-coefficient 
         block vanLeer
           extends Icons.BlockIcon;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         parameter Integer n = worldModel1.n;
         parameter Integer m = worldModel1.m;
         parameter Integer gcl = worldModel1.gcl;
@@ -8332,7 +8332,7 @@ This package offers a high resolution method, van Leer method, for solving linea
         block FluxLimiterSolver
           extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer method = worldModel1.fls;
           inner parameter Integer p = 1;
 
@@ -8369,7 +8369,7 @@ method = 5:    <b>van Leer</b> <br>
             annotation (extent=[-20,-12; 20,12]);
           LinearMethods.Fromm fromm if method == 4
             annotation (extent=[-20,-44; 20,-20]);
-          PDE.FiniteVolume.FluxLimiter.HighResolutionMethods.vanLeer vanLeerNew
+          PDELib.FiniteVolume.FluxLimiter.HighResolutionMethods.vanLeer vanLeerNew
             if                                           method == 5
             annotation (extent=[-20,-76; 20,-52]);
         equation
@@ -8646,7 +8646,7 @@ In general, the user must compute the eigenvector matrix and eigenvalues by usin
           block ICacoustics
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer m = worldModel1.m;
 
@@ -8678,7 +8678,7 @@ Implements the initial condition for the acoustics example.
           block BCLacoustics
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer gcl = worldModel1.gcl;
 
           equation
@@ -8709,7 +8709,7 @@ Implements the left boundary condition for the acoustics example.
           block BCRacoustics
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer gcr = worldModel1.gcr;
 
           equation
@@ -8761,7 +8761,7 @@ Implements the Euler system of equations
 </p>
 
 <p>
-with Roe´s flux. The initial conditions are
+with RoeÂ´s flux. The initial conditions are
 </p>
 
 <img align=middle src=\"..\\Images\\sw4.png\">
@@ -8810,11 +8810,11 @@ that are computed at each time step at each interface by the corresponding block
               annotation (extent=[-18,-16; -8,-6]);
             FluxLimiterSolver.FluxLimiterSolver fluxLimiterSolver2(p=3)
               annotation (extent=[-18,-32; -8,-22]);
-            PDE.FiniteVolume.FluxLimiter.Examples.Acoustic.ICacoustics
+            PDELib.FiniteVolume.FluxLimiter.Examples.Acoustic.ICacoustics
               iCacoustics           annotation (extent=[12,-76; 22,-66]);
-            PDE.FiniteVolume.FluxLimiter.Examples.Acoustic.BCLacoustics
+            PDELib.FiniteVolume.FluxLimiter.Examples.Acoustic.BCLacoustics
               bCLacoustics            annotation (extent=[14,-84; 20,-78]);
-            PDE.FiniteVolume.FluxLimiter.Examples.Acoustic.BCRacoustics
+            PDELib.FiniteVolume.FluxLimiter.Examples.Acoustic.BCRacoustics
               bCRacoustics            annotation (extent=[14,-92; 20,-86]);
             Modelica.Blocks.Math.Product product[worldModel1.n + worldModel1.gcl
                + worldModel1.gcr] annotation (extent=[-86,-48; -80,-42]);
@@ -9065,7 +9065,7 @@ that are computed at each time step at each interface by the corresponding block
           block R
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer m = worldModel1.m;
           parameter Integer gcl = worldModel1.gcl;
@@ -9114,7 +9114,7 @@ that are computed at each time step at each interface by the corresponding block
           block L
             extends World.worldModel;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer m = worldModel1.m;
 
@@ -9151,7 +9151,7 @@ that are computed at each time step at each interface by the corresponding block
           block Riemann1
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer m = worldModel1.m;
           parameter Integer n = worldModel1.n;
           parameter Integer gcl = worldModel1.gcl;
@@ -9189,7 +9189,7 @@ that are computed at each time step at each interface by the corresponding block
           block WaveP1
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer m = worldModel1.m;
           parameter Integer n = worldModel1.n;
           parameter Integer gcl = worldModel1.gcl;
@@ -9216,7 +9216,7 @@ that are computed at each time step at each interface by the corresponding block
           block Fluctuation1
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer m = worldModel1.m;
           parameter Integer gcl = worldModel1.gcl;
@@ -9257,7 +9257,7 @@ that are computed at each time step at each interface by the corresponding block
           block teta1
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer gcl = worldModel1.gcl;
           parameter Integer gcr = worldModel1.gcr;
@@ -9298,7 +9298,7 @@ that are computed at each time step at each interface by the corresponding block
           block LimitedWave1
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer m = worldModel1.m;
           parameter Integer n = worldModel1.n;
           parameter Integer gcl = worldModel1.gcl;
@@ -9325,7 +9325,7 @@ that are computed at each time step at each interface by the corresponding block
           block FluxLimited1
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer n = worldModel1.n;
           parameter Integer m = worldModel1.m;
           parameter Integer gcl = worldModel1.gcl;
@@ -9354,7 +9354,7 @@ that are computed at each time step at each interface by the corresponding block
           block Filter1
             extends Icons.BlockIcon;
 
-          outer PDE.World.worldModel worldModel1;
+          outer PDELib.World.worldModel worldModel1;
           parameter Integer m = worldModel1.m;
           parameter Integer n = worldModel1.n;
           parameter Integer gcl = worldModel1.gcl;
@@ -9418,7 +9418,7 @@ For the explanations of how to use the blocks in this package see the <b>Users G
     annotation (Documentation(info="<html>
 <p>
 This package contains necessary blocks for solving partial differential equations with Finite Volume Methods.
-To understand the use of the blocks, many examples are implemented (PDE->FiniteVolume->Examples).
+To understand the use of the blocks, many examples are implemented (PDELib->FiniteVolume->Examples).
 </p>
 
 </pre>
@@ -9433,7 +9433,7 @@ To understand the use of the blocks, many examples are implemented (PDE->FiniteV
       block GeneralIntegrator
         extends Icons.BlockIcon1;
 
-        outer PDE.World.worldModel worldModel1;
+        outer PDELib.World.worldModel worldModel1;
         inner parameter Integer n = worldModel1.n;
         parameter Integer integrator = 1;
 
@@ -9502,10 +9502,10 @@ inputs is the same as for other integrator blocks.
           annotation (extent=[100,50; 120,70]);
         Modelica.Blocks.Interfaces.RealOutput y1[worldModel1.n + worldModel1.gcl +
           worldModel1.gcr] annotation (extent=[100,-70; 120,-50]);
-        PDE.General.Interfaces.IntegratorMOL integratorMOL if
+        PDELib.General.Interfaces.IntegratorMOL integratorMOL if
                                        integrator == 1
           annotation (extent=[-18,28; 28,76]);
-        PDE.General.Interfaces.IntegratorFVM integratorFVM(
+        PDELib.General.Interfaces.IntegratorFVM integratorFVM(
                                     bcl=0, bcr=0) if
                                        integrator == 2
           annotation (extent=[-18,-60; 28,-18]);
@@ -9551,7 +9551,7 @@ This package contains GeneralIntegrator block that implements the Method of Line
 
     package Interfaces
       block IntegratorMOL
-        extends PDE.Icons.BlockIcon1;
+        extends PDELib.Icons.BlockIcon1;
 
       outer Integer n;
       outer Integer bcl;
@@ -9611,7 +9611,7 @@ This package contains GeneralIntegrator block that implements the Method of Line
               string="Var")), Diagram,
           Documentation(info="<html>
 <p>
-This is a slightly modified version of the MOL integrator block implemented in PDE->MOL->Integrator. The integrator block accepts the equations of the form
+This is a slightly modified version of the MOL integrator block implemented in PDELib->MOL->Integrator. The integrator block accepts the equations of the form
 </p>
 <p>
 u_t = R(u, u_xx, ...)
@@ -9766,7 +9766,7 @@ passed to the BCL and BCR inputs respectively.
               string="Q")),
           Documentation(info="<html>
 <p>
-The IntegratorFVM block is a slightly modified version of the FVMIntegrator (PDE->FiniteVolume->FVMIntegrator).
+The IntegratorFVM block is a slightly modified version of the FVMIntegrator (PDELib->FiniteVolume->FVMIntegrator).
 It implements the cell average update rule. In one dimension, the finite volume method subdivide the domain into <br>
 cells (intervals) and approximates the integral of the unknown function q over each of these cells at each time step (see figure below). <br>
 The ghost cells are the boundary cells that are introduced to avoid writing special formulas for the boundary cells.
@@ -9846,7 +9846,7 @@ This package contains two integrator blocks: IntegratorMOL and IntegratorFVM.
 
     package Examples
       model AdvectionMOL
-        PDE.General.Integrator.GeneralIntegrator generalIntegrator(
+        PDELib.General.Integrator.GeneralIntegrator generalIntegrator(
           vb=2,
           icb=2,
           n=worldModel1.n,
@@ -9894,7 +9894,7 @@ Implements advection equation with MOL method by using GeneralIntegrator block a
       end AdvectionMOL;
 
       model AdvectionFVM
-        PDE.General.Integrator.GeneralIntegrator generalIntegrator(
+        PDELib.General.Integrator.GeneralIntegrator generalIntegrator(
           vb=2,
           icb=2,
           n=worldModel1.n,
@@ -9912,13 +9912,13 @@ Implements advection equation with FVM method by using GeneralIntegrator block a
         Modelica.Blocks.Sources.RealExpression BCL(y=cos(-0.1*time))
           annotation (extent=[-72,6; -52,26]);
         inner World.worldModel worldModel1 annotation (extent=[-28,88; 14,100]);
-        PDE.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
+        PDELib.FiniteVolume.LDLR.L.LDLRminus lDLRminus_plus
           annotation (extent=[32,28; 54,36]);
-        PDE.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
+        PDELib.FiniteVolume.LDLR.L.LDLRplus lDLRplus_plus
           annotation (extent=[32,16; 54,24]);
-        PDE.FiniteVolume.LDLR.u.u_minus u_minus_plus
+        PDELib.FiniteVolume.LDLR.u.u_minus u_minus_plus
           annotation (extent=[66,28; 82,36]);
-        PDE.FiniteVolume.LDLR.u.u_plus u_plus_plus
+        PDELib.FiniteVolume.LDLR.u.u_plus u_plus_plus
           annotation (extent=[66,16; 82,24]);
         Modelica.Blocks.Sources.RealExpression speed1[worldModel1.n + 1](y=0.1)
           annotation (extent=[10,-24; 24,-8]);
@@ -9926,7 +9926,7 @@ Implements advection equation with FVM method by using GeneralIntegrator block a
           annotation (extent=[38,-12; 50,0]);
         Modelica.Blocks.Math.Product product2[worldModel1.n + 1]
           annotation (extent=[38,-32; 50,-20]);
-        PDE.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
+        PDELib.FiniteVolume.Fluxes.LaxFriedrichFlux.LF lF(
                                         alpha=0.2)
           annotation (extent=[64,-26; 84,-6]);
         Modelica.Blocks.Sources.RealExpression BCR
@@ -9998,4 +9998,4 @@ This package contains necessary blocks for solving partial differential equation
 <ul>
 </html>"));
   end General;
-end PDE;
+end PDELib;
